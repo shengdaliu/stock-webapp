@@ -9,7 +9,7 @@ Make sure you have [Stock Backend](https://github.com/shengdaliu/stock-api) runn
 
 ```sh
 git clone https://github.com/shengdaliu/stock-webapp
-cd app
+cd stock-webapp
 npm install
 npm start
 ```
