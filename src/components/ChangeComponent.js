@@ -6,6 +6,10 @@ import axios from 'axios';
 
 require('styles//Stock.css');
 
+function percentFormatter(fieldValue) {
+  return `${fieldValue}%`;
+}
+
 function columnClassNameFormat(fieldValue) {
   let color = 'td-column-negative'
 
@@ -74,9 +78,9 @@ class ChangeComponent extends React.Component {
     return (
     <div>
     <BootstrapTable data={[this.state.changes]} version='4'>
-          <TableHeaderColumn isKey dataField='avgChange'  columnClassName={ columnClassNameFormat }>Average Change</TableHeaderColumn>
-          <TableHeaderColumn dataField='minChange' columnClassName={ columnClassNameFormat }>Min Change</TableHeaderColumn>
-          <TableHeaderColumn dataField='maxChange' columnClassName={ columnClassNameFormat }>Max Change</TableHeaderColumn>
+          <TableHeaderColumn isKey dataField='avgChange' dataFormat={ percentFormatter }  columnClassName={ columnClassNameFormat }>Average Change</TableHeaderColumn>
+          <TableHeaderColumn dataField='minChange' dataFormat={ percentFormatter } columnClassName={ columnClassNameFormat }>Min Change</TableHeaderColumn>
+          <TableHeaderColumn dataField='maxChange' dataFormat={ percentFormatter } columnClassName={ columnClassNameFormat }>Max Change</TableHeaderColumn>
       </BootstrapTable>
     <br/>
     </div>)

@@ -11,6 +11,14 @@ function descriptionFormatter(cell, row) {
   return description;
 }
 
+function priceFormatter(fieldValue) {
+  return `<img class="icon" src="../images/dollar-sign.svg">${fieldValue}K`;
+}
+
+function percentFormatter(fieldValue) {
+  return `${fieldValue}%`;
+}
+
 function columnClassNameFormat(fieldValue) {
   let color = 'td-column-negative'
 
@@ -82,8 +90,8 @@ class StockComponent extends React.Component {
       search>
           <TableHeaderColumn isKey dataField='Company' dataSort={ true }>Company Name</TableHeaderColumn>
           <TableHeaderColumn dataField='description' dataFormat={ descriptionFormatter } >Description</TableHeaderColumn>
-          <TableHeaderColumn dataField='Change' dataSort={ true } columnClassName={ columnClassNameFormat } >24h Change</TableHeaderColumn>
-          <TableHeaderColumn dataField='Average Volume' dataSort={ true } columnClassName={ columnClassNameFormat } >Average Volume</TableHeaderColumn>
+          <TableHeaderColumn dataField='Change' dataSort={ true } dataFormat={ percentFormatter } columnClassName={ columnClassNameFormat } >24h Change</TableHeaderColumn>
+          <TableHeaderColumn dataField='Average Volume' dataSort={ true } dataFormat={ priceFormatter } columnClassName={ columnClassNameFormat } >Average Volume</TableHeaderColumn>
       </BootstrapTable>
       
     </div>)

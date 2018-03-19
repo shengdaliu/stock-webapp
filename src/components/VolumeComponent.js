@@ -6,6 +6,10 @@ import axios from 'axios';
 
 require('styles//Stock.css');
 
+function priceFormatter(fieldValue) {
+  return `<img class="icon" src="../images/dollar-sign.svg">${fieldValue}K`;
+}
+
 function columnClassNameFormat(fieldValue) {
   let color = 'td-column-negative'
 
@@ -74,9 +78,9 @@ class VolumeComponent extends React.Component {
     return (
     <div>
     <BootstrapTable data={[this.state.volumes]} version='4'>
-        <TableHeaderColumn isKey dataField='avgAvgVolume'  columnClassName={ columnClassNameFormat }>Average Volume</TableHeaderColumn>
-        <TableHeaderColumn dataField='minAvgVolume' columnClassName={ columnClassNameFormat }>Min Volume</TableHeaderColumn>
-        <TableHeaderColumn dataField='maxAvgVolume' columnClassName={ columnClassNameFormat }>Max Volume</TableHeaderColumn>
+        <TableHeaderColumn isKey dataField='avgAvgVolume'  dataFormat={ priceFormatter } columnClassName={ columnClassNameFormat }>Average Volume</TableHeaderColumn>
+        <TableHeaderColumn dataField='minAvgVolume' dataFormat={ priceFormatter } columnClassName={ columnClassNameFormat }>Min Volume</TableHeaderColumn>
+        <TableHeaderColumn dataField='maxAvgVolume' dataFormat={ priceFormatter } columnClassName={ columnClassNameFormat }>Max Volume</TableHeaderColumn>
     </BootstrapTable>
     <br/>
     </div>)
