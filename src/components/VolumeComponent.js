@@ -58,6 +58,10 @@ class VolumeComponent extends React.Component {
     axios.get(volume_url)
       .then(res => {
         const volumes = res.data[0];
+        // Use Maths to round all result numbers
+        Object.keys(volumes).map((objectKey) => {
+          volumes[objectKey] = Math.round(volumes[objectKey] * Math.pow(10, 5)) / Math.pow(10, 5);
+        });
         this.setState({ volumes });
       });
   }

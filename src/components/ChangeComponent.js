@@ -58,6 +58,10 @@ class ChangeComponent extends React.Component {
     axios.get(change_url)
       .then(res => {
         const changes = res.data[0];
+        // Use Maths to round all result numbers
+        Object.keys(changes).map((objectKey) => {
+          changes[objectKey] = Math.round(changes[objectKey] * Math.pow(10, 5)) / Math.pow(10, 5);
+        });
         this.setState({ changes });
       });
   }

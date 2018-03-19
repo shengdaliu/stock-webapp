@@ -27,6 +27,7 @@ class AppComponent extends React.Component {
           <img src={headerImage} alt="Stock Image Header" />
         </div>
         <Form handlerFromParent={this.handleData}/>
+        <p>Change and Volume data is only filtered on Country field.</p>
         <Volume data={this.state}/>
         <Change data={this.state}/>
         <Stock data={this.state}/>
