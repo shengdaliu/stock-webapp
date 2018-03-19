@@ -3,6 +3,8 @@ require('styles/App.css');
 
 import React from 'react';
 import Form from './FormComponent';
+import Volume from './VolumeComponent';
+import Change from './ChangeComponent';
 import Stock from './StockComponent';
 
 let headerImage = require('../images/stock.png');
@@ -25,6 +27,8 @@ class AppComponent extends React.Component {
           <img src={headerImage} alt="Stock Image Header" />
         </div>
         <Form handlerFromParent={this.handleData}/>
+        <Volume data={this.state}/>
+        <Change data={this.state}/>
         <Stock data={this.state}/>
       </div>
     );

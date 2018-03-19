@@ -26,6 +26,7 @@ class StockComponent extends React.Component {
       super(props);
       this.state = {
         changes: {},
+        volumes:{},
         stocks: []
       };
   }
@@ -36,45 +37,40 @@ class StockComponent extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     // You don't have to do this check first, but it can help prevent an unneeded render
-    if (nextProps.data.country !== this.state.country) {
-      this.StockComponent();
+    
+    if (nextProps.data !== this.props.data) {
+      this.updateDataTable(nextProps.data);
+      // this.StockComponent();
     }
   }
 
-  StockComponent() {
+  updateDataTable(data){
     let api_url = 'http://localhost:8080/stock?';
-    let change_url = 'http://localhost:8080/stock/aggregateChange?';
-
-
-    if(this.props.data.country !== '' && this.props.data.country !== undefined)
+    
+    if(data.country !== '' && data.country !== undefined)
     {
-      api_url += '&description.Country=' + this.props.data.country;
-      change_url += '&description.Country=' + this.props.data.country;
+      api_url += '&description.Country=' + data.country;
     }
 
-    if(this.props.data.sector !== '' && this.props.data.sector !== undefined)
+    if(data.sector !== '' && data.sector !== undefined)
     {
-      api_url += '&description.Sector=' + this.props.data.sector;
-      change_url += '&description.Sector=' + this.props.data.sector;
+      api_url += '&description.Sector=' + data.sector;
     }
 
-    if(this.props.data.industry !== '' && this.props.data.industry !== undefined)
+    if(data.industry !== '' && data.industry !== undefined)
     {
-      api_url += '&description.Industry=' + this.props.data.industry;
-      change_url += '&description.Industry=' + this.props.data.industry;
+      api_url += '&description.Industry=' + data.industry;
     }
-  
+
     axios.get(api_url)
       .then(res => {
         const stocks = res.data;
         this.setState({ stocks });
       });
+  }
 
-    axios.get(change_url)
-      .then(res => {
-        const changes = res.data[0];
-        this.setState({ changes });
-      });
+  StockComponent() {
+    this.updateDataTable(this.props.data);
   }
 
   render() {
@@ -82,17 +78,12 @@ class StockComponent extends React.Component {
 
     return (
     <div>
-    <BootstrapTable data={[this.state.changes]} version='4'>
-          <TableHeaderColumn isKey dataField='avgChange'  columnClassName={ columnClassNameFormat }>Average Change</TableHeaderColumn>
-          <TableHeaderColumn dataField='minChange' columnClassName={ columnClassNameFormat }>Min Change</TableHeaderColumn>
-          <TableHeaderColumn dataField='maxChange' columnClassName={ columnClassNameFormat }>Max Change</TableHeaderColumn>
-      </BootstrapTable>
-    <br/>
     <BootstrapTable exportCSV data={listStocks} version='4'
       search>
           <TableHeaderColumn isKey dataField='Company' dataSort={ true }>Company Name</TableHeaderColumn>
-          <TableHeaderColumn dataField='Change' dataSort={ true } columnClassName={ columnClassNameFormat } >24h Change</TableHeaderColumn>
           <TableHeaderColumn dataField='description' dataFormat={ descriptionFormatter } >Description</TableHeaderColumn>
+          <TableHeaderColumn dataField='Change' dataSort={ true } columnClassName={ columnClassNameFormat } >24h Change</TableHeaderColumn>
+          <TableHeaderColumn dataField='Average Volume' dataSort={ true } columnClassName={ columnClassNameFormat } >Average Volume</TableHeaderColumn>
       </BootstrapTable>
       
     </div>)
