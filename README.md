@@ -1,4 +1,4 @@
-# Stock Wabapp
+# Stock Webapp
 
 A Node.js app using [Express](http://expressjs.com/).
 
